@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baby Shower</title>
+    <style>
+        body {
+            background-image: url('ruta/a/imagen/de/fondo.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #wishlist {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .item {
+            border: 1px solid #000;
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+        }
+        .item img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mi lista de deseos para el baby shower</h1>
+    <input type="file" id="fileUpload" accept="image/*">
+    <input type="text" id="itemName" placeholder="Nombre del artículo">
+    <textarea id="itemDescription" placeholder="Descripción del artículo"></textarea>
+    <button onclick="addItem()">Agregar artículo</button>
+    <div id="wishlist">
+        <!-- Aquí se agregarán las fotos de los artículos -->
+    </div> 
+
+    <script>
+        function addItem() {
+            var file = document.getElementById('fileUpload').files[0];
+            var itemName = document.getElementById('itemName').value;
+            var itemDescription = document.getElementById('itemDescription').value;
+
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                var img = document.createElement('img');
+                img.src = reader.result;
+
+                var name = document.createElement('p');
+                name.textContent = itemName;
+
+                var description = document.createElement('p');
+                description.textContent = itemDescription;
+
+                var div = document.createElement('div');
+                div.className = 'item';
+                div.appendChild(img);
+                div.appendChild(name);
+                div.appendChild(description);
+
+                document.getElementById('wishlist').appendChild(div);
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
